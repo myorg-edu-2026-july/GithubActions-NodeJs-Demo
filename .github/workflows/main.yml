@@ -1,0 +1,33 @@
+name: Test and build nodejs Code 
+on: push 
+jobs:
+    testJob:
+      runs-on: ubuntu-latest
+      continue-on-error: true
+      steps:
+       - name: Checkout the code on runner ubuntu
+         uses: actions/checkout@v7
+       - name: Install nodejs 
+         uses: actions/setup-node@v7
+         with:
+          node-version: '16'
+       - name: Install node dependencies
+         run: npm ci
+       - name: Execute tests 
+         run: npm test
+    buildJob:
+      runs-on: ubuntu-latest
+      continue-on-error: true
+      steps:
+       - name: Checkout the code on runner ubuntu
+         uses: actions/checkout@v7
+       - name: Install nodejs 
+         uses: actions/setup-node@v7
+         with:
+          node-version: '18'
+       - name: Install node dependencies
+         run: npm ci
+       - name: Execute tests 
+         run: npm test
+       - name: Build code 
+         run: npm run build 
